@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Brands.Queries.GetList
 {
-    public class GetListBrandQuery: IRequest<GetBrandListModel>
+    public class GetListBrandQuery : IRequest<BrandListModel>
     {
         public PageRequest PageRequest { get; set; }
-        public class GetListBrandQueryHandler : IRequestHandler<GetListBrandQuery, GetBrandListModel>
+        public class GetListBrandQueryHandler : IRequestHandler<GetListBrandQuery, BrandListModel>
         {
             private readonly IBrandRepository _brandRepository;
             private readonly IMapper _mapper;
@@ -26,10 +26,10 @@ namespace Application.Features.Brands.Queries.GetList
                 _mapper = mapper;
             }
 
-            public async Task<GetBrandListModel> Handle(GetListBrandQuery request, CancellationToken cancellationToken)
+            public async Task<BrandListModel> Handle(GetListBrandQuery request, CancellationToken cancellationToken)
             {
-               IPaginate<Brand> brands=await _brandRepository.GetListAsync(index:request.PageRequest.Page,size:request.PageRequest.PageSize);
-               GetBrandListModel mappedGetBrandListModel=_mapper.Map<GetBrandListModel>(brands);
+                IPaginate<Brand> brands = await _brandRepository.GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize, cancellationToken: cancellationToken);
+                BrandListModel mappedGetBrandListModel = _mapper.Map<BrandListModel>(brands);
                 return mappedGetBrandListModel;
             }
         }

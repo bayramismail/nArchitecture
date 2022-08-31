@@ -27,7 +27,7 @@ namespace Application.Features.Brands.Commands.Create
                 _mapper = mapper;
                 _brandBusinessRules = brandBusinessRules;
             }
-
+           
             public async Task<CreatedBrandDto> Handle(CreateBrandCommand request ,CancellationToken cancellationToken)
             {
                 await _brandBusinessRules.BrandCanNotBeDuplicatedWhenInserted(request.Name);
