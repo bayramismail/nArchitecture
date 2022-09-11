@@ -21,7 +21,7 @@ namespace Persistence
                                                      options.UseSqlServer(
                                                          configuration.GetConnectionString("MssqlConnectionString")));
             services.AddScoped<IBrandRepository, BrandRepository>();
-
+            services.AddScoped<IModelRepository, ModelRepository>();
             return services;
         }
     }
